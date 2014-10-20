@@ -2,10 +2,8 @@
 
 TMUX_SESSION="main"
 
-if [ $(tmux ls | grep $TMUX_SESSION | wc -l) != 1 ]
-then
-	echo "Starting tmux session: $TMUX_SESSION"
-	tmux new-session -s $TMUX_SESSION -d
+if tmux has-session -t $TMUX_SESSION; then
+	tmux attach -t $TMUX_SESSION
+else
+	tmux new-session -s $TMUX_SESSION
 fi
-
-tmux attach -t $TMUX_SESSION
